@@ -125,8 +125,8 @@
          else if(solo && !HARD && EASY && !MEDIUM && lose !=true && win !=true){
             g.drawImage(ClassicBack,0,0,null);
             
-            for (int i = 0; i < 9; i++) {
-               for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 10; i++) {
+               for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if( temp == -1)
                      g.drawImage(img[9],(j*15) + 320, (i*15)+200, this); 
@@ -196,8 +196,8 @@
          
          else if(solo && !HARD && EASY && !MEDIUM && lose == true && win!= true){ 
             System.out.println("PAINT THE LOSER"); 
-            for (int i = 0; i < 9; i++) {
-               for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 10; i++) {
+               for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if(gameeasy.Covered(i,j) == true){
                      g.drawImage(img[10],(j*15) + 320, (i*15)+200, this); 
@@ -211,8 +211,8 @@
          else if(solo && !HARD && EASY && !MEDIUM && win == true && lose !=true ){ 
             System.out.println("PAINT THE Winner"); 
             g.drawImage(WinnerBack,0,0,null);
-            for (int i = 0; i < 9; i++) {
-               for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 10; i++) {
+               for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if(gameeasy.Covered(i,j) != true){
                      g.drawImage(img[10],(j*15) + 320, (i*15)+200, this); 
@@ -350,7 +350,7 @@
                   }  
                }
                System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
-               if(boxColumn > -1 && boxColumn < 9 && boxLine > -1 && boxLine < 9){
+               if(boxColumn > -1 && boxColumn < 10 && boxLine > -1 && boxLine < 10){
                   if(gameeasy.loser(boxLine, boxColumn) != true && gameeasy.win()!= true){
                      gameeasy.play(boxLine, boxColumn); 
                      repaint();       
@@ -393,11 +393,11 @@
                      repaint(); 
                   }
                   else{
-                     System.out.println("WHY NOT"); 
+                   
                      lose = true; 
                      repaint(); 
                   }
-                  
+                 
                }
                
             }
@@ -407,24 +407,27 @@
                for(int i = 180 ; i<420; i+=15){
                   for(int j = 150; j < 600 ; j+=15){
                      if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxLine = ((e.getX()-180)/15);
-                        boxColumn = ((e.getY()-150)/15);	
+                        boxColumn = ((e.getX()-180)/15);
+                        boxLine = ((e.getY()-150)/15);	
                         tempLine= boxLine;
                         tempColumn = boxColumn; 
                      }
                   }
                   System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
-                  if(boxColumn > -1 && boxColumn < 16 && boxLine > -1 && boxLine < 30){
+                  if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
                      if(gamehard.loser(boxLine, boxColumn) != true && gamehard.win()!= true){
+                        System.out.println("WHYz");                   
                         gamehard.play(boxLine, boxColumn); 
                         repaint();       
                      }
                      else if(gamehard.win() == true){
+                        System.out.println("WHY");                 
                         win = true;
                         repaint(); 
                      }
                      else{
                         lose = true; 
+                        System.out.println("WHY NOT"); 
                         repaint(); 
                      }
                   

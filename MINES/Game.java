@@ -10,7 +10,7 @@
       int count = 0;    
       private int[][] mines;
       private char[][] boardgame;
-      private int Line, Column,mark, inputLine,inputColumn,difficult,numbamines;
+      public int Line, Column,mark, inputLine,inputColumn,difficult,numbamines;
       Random random = new Random(); 
       boolean finish = false;
       boolean flag = false;
@@ -41,17 +41,17 @@
     
       public void difficultyset(int difficulty){
          if(difficulty==1){
-            Line = 9; 
-            Column = 9;
-            goal = 66; 
-            isCovered=new int[9][9];
-            covering = new boolean [9][9];
-            marking = new boolean [9][9]; 
+            Line = 10; 
+            Column = 10;
+            goal = 86 ; 
+            isCovered=new int[10][10];
+            covering = new boolean [10][10];
+            marking = new boolean [10][10]; 
             mines = new int[Line+3][Column+3];
             boardgame = new char[Line+3][Column+3]; 
             numbamines= 14; 
-            for (int i = 0 ; i < 9 ; i++){
-               for (int j = 0 ; j < 9 ; j++){
+            for (int i = 0 ; i < 10 ; i++){
+               for (int j = 0 ; j < 10 ; j++){
                   covering[i][j] = true; 
                   isCovered[i][j] = 0;
                }
@@ -94,10 +94,10 @@
          }
       }
    	
-      public void play(int Line, int Column){       
-         finish = isBomb(Line, Column);
+      public void play(int Line1, int Column1){       
+         finish = isBomb(Line1, Column1);
          if(!finish){
-            openNeighbors(Line, Column);
+            openNeighbors(Line1, Column1);
             finish = win();
          }
       }
@@ -153,34 +153,7 @@
             return false;
       }
       
-      public void Bomb(int Linein, int Columnin){
-         int counts = 0; 
-         for(int i=-1 ; i<2 ; i++){
-            for(int j=-1 ; j<2 ; j++){
-               if(mines[Linein+i][Columnin+j] == -1){
-                  numbamines--;
-                  counts++; 
-               }
-               // if flag is on the square 
-            	// score1--;
-            	//if enemy flag is on the square
-            	//score2--; 
-               if(Linein != 0 && Linein != Line  && Columnin != 0 && Columnin != Column)
-                  boardgame[Linein+ i][Column+j] = '0';
-            }
-         }
-         
-      
-      }
-      public void Fire(int Linein, int Columnin){
-      	
-      }
-      public void MultiFlag(int Linein, int Columnin){
-      
-      }
-      public int scorecorrector(){
-         return 3; 
-      }
+   
       public void openNeighbors(int Line1, int Column1){      
          System.out.println(" The openning line and columns: Line : " + Line + " Column: " + Column); 
          if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
@@ -265,9 +238,7 @@
          if(Line1<Line && Column1<Column && Line>=0 && Column1>=0 && mines[Line1][Column1] != -1 && covering[Line1][Column1] ==true){    
             covering[Line1][Column1]=false; 
             isCovered[Line1][Column1]+=1;
-            countergoal++;
-            System.out.println(countergoal);  
-            System.out.println(goal);      
+            countergoal++;    
          } 
          else{
             return; 
@@ -370,7 +341,7 @@
       public void show(){
          System.out.println("\n     Lines");
          for(int i = 1 ; i < Line+1 ; i++){
-            if(i > 9)
+            if(i > 10)
                System.out.print("      "+i + " ");  
             else{   
                System.out.print("       "+ i + " ");

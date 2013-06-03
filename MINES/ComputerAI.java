@@ -1,19 +1,22 @@
    public class ComputerAI extends Game{
    
       public ComputerAI(int Line, int Column){
-         this.Line = Line;
-         boolean winner = false; 
-         this.Column= Column;
+        Line = Line;
+        winner = false; 
+         Column= Column;
       }
       public boolean gotWinner(){ 
          while(winner!=true){
-            if(win())
+            if(win()){
                winner = true;
+						System.out.println("Cool"); 
+						}
             else{
                return false; 
             }
          }
       }
+	
    }
 
 
