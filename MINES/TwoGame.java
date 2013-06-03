@@ -18,7 +18,6 @@
       int turn = 1 ;  
       int totalturn,score1,score2,goal = 0; 
       int countergoal = 0; 
-      Scanner input = new Scanner(System.in); 
       private int [][] isCovered;
      
       public TwoGame(){
@@ -37,6 +36,11 @@
                isCovered[i][j] = 0; 
             }
          } 
+         startMines();
+         randomMines();  
+         fillNumber();
+         startBoard(); 
+      
       }
       	      
       public void play(int Line1, int Column1){       
@@ -70,7 +74,7 @@
       
    
       public void openNeighbors(int Line1, int Column1){      
-         System.out.println(" The openning line and columns: Line : " + Line + " Column: " + Column); 
+         System.out.println(" The openning line and columns: Line : " + Line1 + " Column: " + Column1); 
          if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
             return;
          }
@@ -247,7 +251,17 @@
             }while(shuffle);
             
             mines[x][y] = -1;
+         
          }
+      }
+      public void Fire(){
+      
+      }
+      public void multiFlag(){
+      
+      }
+      public void Bomb(){
+      
       }
     
    }

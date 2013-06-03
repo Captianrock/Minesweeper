@@ -1,7 +1,7 @@
    import java.awt.Image;
    import java.awt.event.MouseEvent;
 /* 
-PROPERTY OF MAX KNUTSEN 2013
+PROPERTY OF MAX KNUTSEN 2013 THE SWAG KING FOREVER AND ALWAYS
 */
 
    public class Button implements Comparable<Button> {

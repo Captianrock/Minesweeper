@@ -346,10 +346,35 @@
                      repaint();  
                   }
                }	
+                  
+               else if (solo == true && ai !=true && twoplay !=true){
+                  if(easy.isInside(e) && HARD != true && MEDIUM !=true ){
+                     starting=false; 
+                     EASY=true;
+                     MEDIUM = false;
+                     HARD = false;
+                     repaint();
+                  }
+                  else if(hard.isInside(e) && MEDIUM !=true && EASY !=true){
+                     starting=false;
+                     HARD=true;
+                     EASY = false;
+                     MEDIUM = false; 
+                     repaint();
+                  }
+                  else if(medium.isInside(e) && EASY != true && HARD != true){
+                     starting=false;
+                     MEDIUM=true;
+                     EASY = false;
+                     HARD = false;
+                     repaint();
+                  }
+               }
+            
             }
             else if(twoplay == true && solo != true && ai != true){
-      System.out.println("Come out");         
-				   int boxLine =0;
+               System.out.println("Come out");         
+               int boxLine =0;
                int boxColumn = 0; 	
                for(int i = 180 ; i<420; i+=15){
                   for(int j = 150; j < 600 ; j+=15){
@@ -383,31 +408,7 @@
                }              	
             }
                
-               
-            else if (solo == true && ai !=true && twoplay !=true){
-               if(easy.isInside(e) && HARD != true && MEDIUM !=true ){
-                  starting=false; 
-                  EASY=true;
-                  MEDIUM = false;
-                  HARD = false;
-                  repaint();
-               }
-               else if(hard.isInside(e) && MEDIUM !=true && EASY !=true){
-                  starting=false;
-                  HARD=true;
-                  EASY = false;
-                  MEDIUM = false; 
-                  repaint();
-               }
-               else if(medium.isInside(e) && EASY != true && HARD != true){
-                  starting=false;
-                  MEDIUM=true;
-                  EASY = false;
-                  HARD = false;
-                  repaint();
-               }
-            }
-            
+                        
              
             else if(EASY == true && MEDIUM != true && HARD != true && win != true && lose !=true){
                int boxLine =0;
@@ -603,11 +604,30 @@
                gamehard.Mark(boxLine, boxColumn);
                repaint();       
             }
+            else if(twoplay == true && solo != true && ai != true){
+               System.out.println("Come out");         
+               int boxLine =0;
+               int boxColumn = 0; 	
+               for(int i = 180 ; i<420; i+=15){
+                  for(int j = 150; j < 600 ; j+=15){
+                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
+                        boxColumn = ((e.getX()-180)/15);
+                        boxLine = ((e.getY()-150)/15);	
+                        tempLine= boxLine;
+                        tempColumn = boxColumn; 
+                     }
+                  }
+               }
+               System.out.println("Mark " + boxLine+ " " + boxColumn+ " " + e.getX() + " " + e.getY()); 
+               gametwo.Mark(boxLine, boxColumn);
+               repaint();               	
+            }
+            
          }
          
-      }
+         
       
-                             
+      }                       
          
       
       
