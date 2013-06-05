@@ -18,10 +18,10 @@
       int turn=2;
       public int tempLine,tempColumn;  
       private Image[] img;
-      Image image , Startup, Classic, Computer, Battle,Classic2, Easy, Medium, Hard,ClassicBack,WinnerBack,TwoPlayBack;
+      Image image , Startup, Classic, Computer, Battle,Classic2, Easy, Medium, Hard,ClassicBack,WinnerBack,TwoPlayBack,Bomb,Fire,MultiFlag;
       boolean starting = true; 
       boolean solo,ai,twoplay,EASY,MEDIUM,HARD,checkstart;
-      Button classic, computer, battle, easy, medium, hard; 
+      Button classic, computer, battle, easy, medium, hard, Bombbutt,Firebutt, Flagbutt; 
       Game gameeasy = new Game(1);
       Game gamemed = new Game(2);
       Game gamehard= new Game(3);
@@ -40,7 +40,10 @@
          ImageIcon h	= new ImageIcon(this.getClass().getResource("Hard.png"));
          ImageIcon hh	= new ImageIcon(this.getClass().getResource("ClassicBack.png"));	
          ImageIcon gg = new ImageIcon(this.getClass().getResource("Winner.png"));
-         ImageIcon ii = new ImageIcon(this.getClass().getResource("TwoPlayBack.png"));		
+         ImageIcon ii = new ImageIcon(this.getClass().getResource("TwoPlayBack.png"));	
+			ImageIcon aa = new ImageIcon(this.getClass().getResource("bomb.png"));	
+			ImageIcon bb = new ImageIcon(this.getClass().getResource("fire.png")); 	
+			ImageIcon cc = new ImageIcon(this.getClass().getResource("flag2.png"));	
          Startup = a.getImage(); 
          Classic = b.getImage();
          Computer = c.getImage();
@@ -52,12 +55,16 @@
          ClassicBack = hh.getImage();
          WinnerBack = gg.getImage(); 
          TwoPlayBack = ii.getImage(); 
+			Bomb = aa.getImage();
+			Fire = bb.getImage(); 
+			MultiFlag = cc.getImage(); 
          classic = new Button(50,300,250,400,Classic);
          battle = new Button(300,300,500,400, Battle);
          computer = new Button(550, 300,750,400, Computer);
          easy = new Button(50,300,250,400,Easy);
          medium= new Button(300,300,500,400,Medium);
-         hard= new Button(550, 300, 750, 400, Hard); 
+        hard= new Button(550, 300, 750, 400, Hard);
+		//  Bombbutt= new Button( 	
          img = new Image[num_imgs];
          for (int i = 0; i < num_imgs; i++) {
             img[i] =(new ImageIcon(this.getClass().getResource("/img/j"+(i)+ ".png"))).getImage();
@@ -86,10 +93,16 @@
          }
          else if (twoplay && !ai && !solo){
             g.drawImage(TwoPlayBack, 0 , 0 , null); 
+				g.drawImage(Bomb, 750, 500 , null); 
+				g.drawImage(Fire, 750, 300 , null); 
+				g.drawImage(MultiFlag, 750, 100 , null); 
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 30; j++) {
                   int temp = gametwo.getPosition(i,j);
-                  if( temp == -1)
+      				if(temp == -2){
+						 g.drawImage(img[12],(j*15) + 180, (i*15)+150, this); 
+						}            
+						if( temp == -1)
                      g.drawImage(img[9],(j*15) + 180, (i*15)+150, this); 
                   if( temp == 0)
                      g.drawImage(img[0],(j*15) + 180, (i*15)+150, this); 

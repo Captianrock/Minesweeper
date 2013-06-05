@@ -254,14 +254,43 @@
          
          }
       }
-      public void Fire(){
+      public void Mindcontrol(int Line1, int Column1){
       
       }
-      public void multiFlag(){
+      public void multiFlag(int Line1, int Column1){
       
       }
-      public void Bomb(){
-      
+      public void Bomb(int Line1, int Column1){
+         if(Column1 == 0 && Line1 ==0){
+            mines[Line1+1][Column1] =-2;
+            mines[Line1][Column1+1] =-2;
+            mines[Line1+1][Column1+1] =-2;
+         } 
+         else if (Column1 ==0 && Line1 != 0){
+            mines[Line1][Column1] = -2;
+            mines[Line1+1][Column1] =-2;
+            mines[Line1-1][Column1]=-2;
+            mines[Line1][Column1+1]=-2;
+            mines[Line1-1][Column1+1]=-2;
+            mines[Line1+1][Column1+1]=-2;
+         }
+               
+         else if (Line1 ==0 && Column1 !=0){
+            mines[Line1][Column1]= -2;
+            mines[Line1+1][Column1] =-2;
+            mines[Line1+1][Column1-1]=-2;                                                                                                          
+            mines[Line1+1][Column1+1]=-2;
+            mines[Line1][Column1-1]=-2;
+            mines[Line1][Column1+1]=-2;
+         }
+               
+         else{
+            for(int i=-1 ; i<=1 ; i++)
+               for(int j=-1 ; j<=1 ; j++)
+                  mines[Line1][Column1] = -2; 
+         }
       }
-    
-   }
+   }            
+     
+      
+      

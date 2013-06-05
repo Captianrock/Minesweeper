@@ -43,7 +43,7 @@
          if(difficulty==1){
             Line = 10; 
             Column = 10;
-            goal = 86 ; 
+            goal = 85 ; 
             isCovered=new int[10][10];
             covering = new boolean [10][10];
             marking = new boolean [10][10]; 
