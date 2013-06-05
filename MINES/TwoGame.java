@@ -270,11 +270,10 @@
             mines[Line1][Column1] = -2;
             mines[Line1+1][Column1] =-2;
             mines[Line1-1][Column1]=-2;
-            mines[Line1][Column1+1]=-2;
+            mines[Line1][Column1+1]=-2;	 
             mines[Line1-1][Column1+1]=-2;
             mines[Line1+1][Column1+1]=-2;
-         }
-               
+         }  
          else if (Line1 ==0 && Column1 !=0){
             mines[Line1][Column1]= -2;
             mines[Line1+1][Column1] =-2;
@@ -285,9 +284,11 @@
          }
                
          else{
-            for(int i=-1 ; i<=1 ; i++)
-               for(int j=-1 ; j<=1 ; j++)
+            for(int i=-1 ; i<=1 ; i++){
+               for(int j=-1 ; j<=1 ; j++){
                   mines[Line1][Column1] = -2; 
+               }
+            }
          }
       }
    }            
