@@ -574,12 +574,24 @@
                      repaint(); 
                   }
                   else{
+                  
                      lose = true; 
                      repaint(); 
                   }
                
                }
             
+            }
+            if(lose == true || win == true){
+               if(Retrybutt.isInside(e)){
+                  gameeasy = new Game(1);
+                  gamemed = new Game(2); 
+               	gamehard = new Game(3); 
+               	gametwo = new TwoGame();  
+                  lose = false; 
+               	win = false; 
+                  repaint(); 
+               }
             }
             else if(EASY != true && MEDIUM == true && HARD != true && win != true && lose !=true){
                if(Retrybutt.isInside(e)){
