@@ -122,14 +122,7 @@
          else 
             return false;
       }
-      public void addScore(){
-         if(turn==1){
-            score1++;
-         }
-         else
-            score2++;	      
-      }
-   
+        
       public void openNeighbors(int Line1, int Column1){      
          System.out.println(" The openning line and columns: Line : " + Line + " Column: " + Column); 
          if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
