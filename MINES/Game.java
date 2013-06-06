@@ -110,37 +110,7 @@
             return false;
          } 
       }
-      public void playmulti(int score1, int score2){
-         do{
-            if(turn==1){
-               turn=2;
-               totalturn++;
-            }
-            else{
-               turn=1;
-               totalturn++;
-            }        
-            System.out.println("Player "+turn);
-            show();
-            finish = isBomb(Line, Column);
-            
-            if(!finish){
-               openNeighbors(Line,Column);
-               finish = win();
-            }
-            
-         }while(!finish);
-        
-         if(win()){
-            System.out.println("Congratulations, Player " + turn + " you sexy son of a gun");
-          
-         } 
-         else {
-            System.out.println("You blew yourself to bits Player " + turn);
-            
-         }
-      }
-   
+       
       public boolean win(){       
          if(goal == countergoal)
             return true;
@@ -152,7 +122,13 @@
          else 
             return false;
       }
-      
+      public void addScore(){
+         if(turn==1){
+            score1++;
+         }
+         else
+            score2++;	      
+      }
    
       public void openNeighbors(int Line1, int Column1){      
          System.out.println(" The openning line and columns: Line : " + Line + " Column: " + Column); 

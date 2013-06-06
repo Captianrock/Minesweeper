@@ -8,6 +8,7 @@
       private boolean [][] covering;
       private boolean [][] marking; 
       int count = 0;    
+      int p1bombs=3, p2bombs=3, p1fire=3, p2fire=3;
       private int[][] mines;
       private char[][] boardgame;
       public int Line, Column,mark, inputLine,inputColumn,difficult,numbamines;
@@ -50,8 +51,15 @@
             finish = win();
          }
       }
-      public boolean loser(int Line, int Column){
-         finish = isBomb(Line,Column);
+      public void addScore(){
+         if(turn==1){
+            score1++;
+         }
+         else
+            score2++;	      
+      }
+      public boolean loser(int Line1, int Column1){
+         finish = isBomb(Line1,Column1);
          if(finish){
             return true;
          }
@@ -256,58 +264,42 @@
          }
       }
       public void fire(int Line, int Column){
+         System.out.println("a"+p1fire+" "+p2fire);
+         if(turn==1&&p1fire<1)
+            return;
+         if(turn==2&&p2fire<1)
+            return;
          System.out.println("FIRE");
-         
+         if(Column>32)
+            return;
          for(int i=0;i<32;i++){
             mines[Line][i]=-2;
             setCovered(Line, i);
          }
          for(int i=0;i<16;i++){
+            if(Column>32)
+               return;
             mines[i][Column]=-2;
             setCovered(i, Column);
          }
-      
-      }
-   
+         if(turn==1)
+            p1fire--;
+         if(turn==2)
+            p2fire--;
+      }   
       public void Bomb(int Line1, int Column1){
-         System.out.println("BOMB");
-         if(Column1 == 0 && Line1 ==0){
-            mines[Line1+1][Column1] =-2;
-            mines[Line1][Column1+1] =-2;
-            mines[Line1+1][Column1+1] =-2;
-         } 
-         else if (Column1 ==0 && Line1 != 0){
-            mines[Line1][Column1] = -2;
-            mines[Line1+1][Column1] =-2;
-            mines[Line1-1][Column1]=-2;
-            mines[Line1][Column1+1]=-2;	 
-            mines[Line1-1][Column1+1]=-2;
-            mines[Line1+1][Column1+1]=-2;
-         }  
-         else if (Line1 ==0 && Column1 !=0){
-            mines[Line1][Column1]= -2;
-            mines[Line1+1][Column1] =-2;
-            mines[Line1+1][Column1-1]=-2;                                                                                                          
-            mines[Line1+1][Column1+1]=-2;
-            mines[Line1][Column1-1]=-2;
-            mines[Line1][Column1+1]=-2;
-            setCovered(Line1+1, Column1);
-            setCovered(Line1+1, Column1-1);
-            setCovered(Line1+1, Column1+1);
-            setCovered(Line1+1, Column1+1);
-            setCovered(Line1, Column1-1);
-            setCovered(Line1, Column1+1);
-         }
-               
-         else{
-            for (int i=-1;i<2;i++){
-               for (int j=-1;j<2;j++){
-                  mines[Line1+i][Column1+j] = -2;
-                  setCovered(Line1+i, Column1+j);
-               }
-            }
-         }
-      }      
+         if(Column>32)
+            return;
+         System.out.println("a"+p1bombs+" "+p2bombs);
+         if(turn==1&&p1bombs<1)
+            return;
+         if(turn==2&&p2bombs<1)
+            return;
+         if(turn==1)
+            p1bombs--;
+         if(turn==2)
+            p2bombs--;
+      }
       public void multiFlag(int Line1, int Column1){
       
       }
