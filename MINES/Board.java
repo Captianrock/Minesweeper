@@ -299,11 +299,10 @@
          else if(solo && !HARD && !EASY && MEDIUM && win == true && lose !=true ){ 
             System.out.println("PAINT THE Winner"); 
             g.drawImage(WinnerBack,0,0,null);
-                  }
-               
-               }
-            }
          }
+               
+               
+                     
          else if(solo && HARD && !EASY && !MEDIUM && lose == true && win!= true){ 
             System.out.println("PAINT THE LOSER"); 
             for (int i = 0; i < 16; i++) {
@@ -321,9 +320,8 @@
          else if(solo && HARD && !EASY && !MEDIUM && win == true && lose !=true ){ 
             System.out.println("PAINT THE Winner"); 
             g.drawImage(WinnerBack,0,0,null);
-               }
-            }
          }
+         
          
          else if(twoplay && lose == true && win!= true && !solo){ 
            
@@ -478,15 +476,15 @@
                else{
                   System.out.println("TURN > 5"); 
                   if(playercount%2 ==0){
-                    System.out.println("FALSE"); 
+                     System.out.println("FALSE : " + playercount); 
                      playercount++;
-                    System.out.println("FALSE!!!!!!!!"); 
+                     System.out.println("FALSE!!!!!!!! " + playercount); 
                      playeroneturn = false; 
                   }
-                  if(playercount%2 !=0){
-                     System.out.println("TRUE"); 
+                  else if(playercount%2 !=0){
+                     System.out.println("TRUE " + playercount); 
                      playercount++;
-                     System.out.println("TRUE!!!!!!!!!"); 
+                     System.out.println("TRUE!!!!!!!!! " + playercount); 
                      playeroneturn = true; 
                   }
                   turn = 0; 
