@@ -83,11 +83,12 @@
          }
       }    
       public void changeFlag(){
-         System.out.println("ok");
-         if(playeroneturn)
+         if(playeroneturn){
+		
             Multi = img[11]; 
-         else{
-            System.out.println("not ok"); 
+				}
+         else if(!playeroneturn){
+         
             Multi = img[13]; 
          }
       }
@@ -113,9 +114,11 @@
             g.drawImage(Retry, 350, 10, null); 
             if(playeroneturn){
                g.drawImage(Player1, 0,0 , null); 
+               changeFlag();
             }
             if(!playeroneturn){
                g.drawImage(Player2,0,0, null); 
+               changeFlag();
             }
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 30; j++) {
@@ -146,7 +149,7 @@
                   if(gametwo.Covered(i, j) == true)
                      g.drawImage(img[10],(j*20) + 90, (i*20)+120, this); 
                   if(gametwo.getMarking(i,j) == true){
-                     g.drawImage(img[11],(j*20) + 90, (i*20)+120, this);
+                     g.drawImage(Multi,(j*20) + 90, (i*20)+120, this);
                   
                   } 
                
@@ -264,7 +267,7 @@
          
          
          else if(solo && !HARD && EASY && !MEDIUM && lose == true && win!= true){ 
-            System.out.println("PAINT THE LOSER"); 
+      
             for (int i = 0; i < 10; i++) {
                for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
@@ -278,12 +281,12 @@
             }
          }
          else if(solo && !HARD && EASY && !MEDIUM && win == true && lose !=true ){ 
-            System.out.println("PAINT THE Winner"); 
+
             g.drawImage(WinnerBack,0,0,null);
          
          }
          else if(solo && !HARD && !EASY && MEDIUM && lose == true && win!= true){ 
-            System.out.println("PAINT THE LOSER"); 
+
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 16; j++) {
                   int temp = gamemed.getPosition(i,j);
@@ -297,14 +300,14 @@
             }
          }
          else if(solo && !HARD && !EASY && MEDIUM && win == true && lose !=true ){ 
-            System.out.println("PAINT THE Winner"); 
+
             g.drawImage(WinnerBack,0,0,null);
          }
                
                
                      
          else if(solo && HARD && !EASY && !MEDIUM && lose == true && win!= true){ 
-            System.out.println("PAINT THE LOSER"); 
+
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 30; j++) {
                   int temp = gamehard.getPosition(i,j);
@@ -318,28 +321,26 @@
             }
          }
          else if(solo && HARD && !EASY && !MEDIUM && win == true && lose !=true ){ 
-            System.out.println("PAINT THE Winner"); 
+
             g.drawImage(WinnerBack,0,0,null);
          }
          
          
          else if(twoplay && lose == true && win!= true && !solo){ 
            
-            System.out.println("PAINT THE LOSER"); 
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 30; j++) {
                   int temp = gametwo.getPosition(i,j);
                   if(gametwo.Covered(i,j) == true){
-                     g.drawImage(img[10],(j*20) + 90, (i*20)+110, this); 
+                     g.drawImage(img[10],(j*20) + 90, (i*20)+120, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*20) + 90, (i*20)+110, this); 
+                     g.drawImage(img[9],(j*20) + 90, (i*20)+120, this); 
                   }
                }
             }
          }
          else if(twoplay && win == true && lose !=true && !solo){ 
-            System.out.println("PAINT THE Winner"); 
             g.drawImage(WinnerBack,0,0,null);
          }
       }
@@ -410,7 +411,6 @@
                   repaint(); 
                }
                if(turn <  5){
-                  System.out.println("TURN < 5"); 
                   int boxLine =0;
                   int boxColumn = 0; 	
                   for(int i = 90 ; i<330; i+=20){
@@ -425,20 +425,17 @@
                   }
                   System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
                   if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
-                     if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
-                        System.out.println("WHYz");                   
+                     if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){                
                         gametwo.play(boxLine, boxColumn); 
                         turn++;
                         repaint();       
                      }
-                     else if(gametwo.win() == true){
-                        System.out.println("WHY");                 
+                     else if(gametwo.win() == true){               
                         win = true;
                         repaint(); 
                      }
                      else{
                         lose = true; 
-                        System.out.println("WHY NOT"); 
                         repaint(); 
                         
                      }
@@ -474,17 +471,12 @@
                }
                       	
                else{
-                  System.out.println("TURN > 5"); 
                   if(playercount%2 ==0){
-                     System.out.println("FALSE : " + playercount); 
                      playercount++;
-                     System.out.println("FALSE!!!!!!!! " + playercount); 
                      playeroneturn = false; 
                   }
                   else if(playercount%2 !=0){
-                     System.out.println("TRUE " + playercount); 
                      playercount++;
-                     System.out.println("TRUE!!!!!!!!! " + playercount); 
                      playeroneturn = true; 
                   }
                   turn = 0; 
@@ -503,19 +495,19 @@
                      System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
                      if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
                         if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
-                           System.out.println("WHYz");                   
+                            
                            gametwo.play(boxLine, boxColumn); 
                            turn++;
                            repaint();       
                         }
                         else if(gametwo.win() == true){
-                           System.out.println("WHY");                 
+                
                            win = true;
                            repaint(); 
                         }
                         else{
                            lose = true; 
-                           System.out.println("WHY NOT"); 
+
                            repaint(); 
                         }
                      
@@ -610,15 +602,15 @@
                      }
                   }  
                }
-               System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
+
                if(boxColumn > -1 && boxColumn < 16 && boxLine > -1 && boxLine < 16){
                   if(gamemed.loser(boxLine, boxColumn) != true && gamemed.win()!= true){
-                     System.out.println("WHYz");                 
+            
                      gamemed.play(boxLine, boxColumn); 
                      repaint();       
                   }
                   else if(gamemed.win() == true){
-                     System.out.println("WHY"); 
+  
                      win = true;
                      repaint(); 
                   }
@@ -651,18 +643,18 @@
                   System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
                   if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
                      if(gamehard.loser(boxLine, boxColumn) != true && gamehard.win()!= true){
-                        System.out.println("WHYz");                   
+                  
                         gamehard.play(boxLine, boxColumn); 
                         repaint();       
                      }
                      else if(gamehard.win() == true){
-                        System.out.println("WHY");                 
+                 
                         win = true;
                         repaint(); 
                      }
                      else{
                         lose = true; 
-                        System.out.println("WHY NOT"); 
+
                         repaint(); 
                      }
                   
@@ -761,74 +753,34 @@
                      }
                   }
                }
-               System.out.println("Mark " + boxLine+ " " + boxColumn+ " " + e.getX() + " " + e.getY()); 
-               gamehard.Mark(boxLine, boxColumn);
+                gamehard.Mark(boxLine, boxColumn);
                repaint();       
             }
             else if(twoplay == true && solo != true && ai != true){
-               System.out.println("Come out"); 
-               if(turn <  5){
-                  int boxLine =0;
-                  int boxColumn = 0; 	
-                  for(int i = 90 ; i<330; i+=20){
-                     for(int j = 120; j < 520 ; j+=20){
-                        if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
-                           boxColumn = ((e.getX()-90)/20);
-                           boxLine = ((e.getY()-120)/20);	
-                           tempLine= boxLine;
-                           tempColumn = boxColumn; 
-                        }
+  
+               int boxLine =0;
+               int boxColumn = 0; 	
+               for(int i = 90 ; i<330; i+=20){
+                  for(int j = 120; j < 520 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-90)/20);
+                        boxLine = ((e.getY()-120)/20);	
+                        tempLine= boxLine;
+                        tempColumn = boxColumn; 
                      }
-                  }
-                  System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
-                  if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
-                     if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
-                        System.out.println("WHYz");                   
-                        gametwo.Mark(boxLine, boxColumn); 
-                        turn++;
-                        repaint();       
-                     }
-                     
                   }
                }
-                      	
-               else{
-                  if(playercount%2 ==0){
-                     playercount++;
-                     playeroneturn = false; 
+               System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
+               if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
+                  if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){                
+                     gametwo.Mark(boxLine, boxColumn); 
+                     turn++;
+                     repaint();       
                   }
-                  if(playercount%2 !=0){
-                     playercount++;
-                     playeroneturn = true; 
-                  }
-                  turn = 0; 
-                  changeFlag(); 
-                  int boxLine =0;
-                  int boxColumn = 0; 	
-                  for(int i = 90 ; i<330; i+=20){
-                     for(int j = 120; j < 520 ; j+=20){
-                        if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
-                           boxColumn = ((e.getX()-90)/20);
-                           boxLine = ((e.getY()-120)/20);	
-                           tempLine= boxLine;
-                           tempColumn = boxColumn; 
-                        }
-                     }
-                     System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
-                     if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
-                        if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
-                           System.out.println("WHYz");                   
-                           gametwo.Mark(boxLine, boxColumn); 
-                           turn++;
-                           repaint();       
-                        }
-                     }
                      
-                  }
                }
             }
-         }	
-      
+         }
       }                       
          
       

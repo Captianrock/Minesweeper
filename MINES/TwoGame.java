@@ -82,8 +82,7 @@
       
    
       public void openNeighbors(int Line1, int Column1){      
-         System.out.println(" The openning line and columns: Line : " + Line1 + " Column: " + Column1); 
-         if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
+                  if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
             return;
          }
          if(isCovered[Line1][Column1]>1){
@@ -92,7 +91,6 @@
          
          if(mines[Line1][Column1]== -1){
             setCovered(Line1, Column1);
-            System.out.println("AAAAAAAAAAAAA BOMB :(");
             return; 
          }
          if(mines[Line1][Column1]>0){
@@ -289,7 +287,6 @@
             return;
          if(turn==2&&p2fire<1)
             return;
-         System.out.println("FIRE");
          if(Column>32)
             return;
          for(int i=0;i<32;i++){
@@ -315,7 +312,6 @@
             return;
          if(turn==2 && p2bombs<1)
             return;
-         System.out.println("BOMB");
          if(Column1 == 0 && Line1 ==0){
             mines[Line1+1][Column1] =-2;
             mines[Line1][Column1+1] =-2;

@@ -9,7 +9,7 @@
          setLocationRelativeTo(null);
          setVisible(true);
          setResizable(false); 
-    	
+   
          
       }    
    	

@@ -124,7 +124,6 @@
       }
         
       public void openNeighbors(int Line1, int Column1){      
-         System.out.println(" The openning line and columns: Line : " + Line + " Column: " + Column); 
          if(Line1>=Line || Column1>=Column || Line1<0 || Column1<0 ){
             return;
          }
@@ -134,7 +133,6 @@
          
          if(mines[Line1][Column1]== -1){
             setCovered(Line1, Column1);
-            System.out.println("AAAAAAAAAAAAA BOMB :(");
             return; 
          }
          if(mines[Line1][Column1]>0){
