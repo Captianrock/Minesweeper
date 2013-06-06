@@ -13,14 +13,17 @@
       private Board board;
       boolean lose = false;
       boolean win = false;
-      private final int num_imgs = 13;
+      boolean firing, bombing, flagging;
+      private final int num_imgs = 14;
       private final int pixelsize = 15;
       int turn=2;
+      int playercount = 2; 
       public int tempLine,tempColumn;  
       private Image[] img;
       Image image , Startup, Classic, Computer, Battle,Classic2, Easy, Medium, Hard,ClassicBack,WinnerBack,TwoPlayBack,Bomb,Fire,MultiFlag;
       boolean starting = true; 
       boolean solo,ai,twoplay,EASY,MEDIUM,HARD,checkstart;
+      boolean playeroneturn = true; 
       Button classic, computer, battle, easy, medium, hard, Bombbutt,Firebutt, Flagbutt; 
       Game gameeasy = new Game(1);
       Game gamemed = new Game(2);
@@ -43,7 +46,6 @@
          ImageIcon ii = new ImageIcon(this.getClass().getResource("TwoPlayBack.png"));	
          ImageIcon aa = new ImageIcon(this.getClass().getResource("bomb.png"));	
          ImageIcon bb = new ImageIcon(this.getClass().getResource("fire.png")); 	
-         ImageIcon cc = new ImageIcon(this.getClass().getResource("flag2.png"));	
          Startup = a.getImage(); 
          Classic = b.getImage();
          Computer = c.getImage();
@@ -56,17 +58,16 @@
          WinnerBack = gg.getImage(); 
          TwoPlayBack = ii.getImage(); 
          Bomb = aa.getImage();
-         Fire = bb.getImage(); 
-         MultiFlag = cc.getImage(); 
+         Fire = bb.getImage();  
          classic = new Button(50,300,250,400,Classic);
          battle = new Button(300,300,500,400, Battle);
          computer = new Button(550, 300,750,400, Computer);
          easy = new Button(50,300,250,400,Easy);
          medium= new Button(300,300,500,400,Medium);
          hard= new Button(550, 300, 750, 400, Hard);
-         Bombbutt= new Button( 700,450, 750, 500, Bomb); 
-       //Firebutt= new Button(
-       //MultiFlagbutt = new Button( 
+         Bombbutt= new Button( 725,475, 750, 500, Bomb); 
+         Firebutt= new Button(725,275, 750,300, Fire); 
+         Flagbutt = new Button(725, 75, 750, 100, MultiFlag);  
          img = new Image[num_imgs];
          for (int i = 0; i < num_imgs; i++) {
             img[i] =(new ImageIcon(this.getClass().getResource("/img/j"+(i)+ ".png"))).getImage();
@@ -78,7 +79,15 @@
       public int gettempColumn(){
          return tempColumn; 
       }
-    	
+      public void changeFlag(){
+         System.out.println("ok");
+         if(playeroneturn)
+            MultiFlag = img[11]; 
+         else{
+            System.out.println("not ok"); 
+            MultiFlag = img[13]; 
+         }
+      }
       public void paint(Graphics gr){
          Graphics2D g = (Graphics2D) gr;
          if(starting){
@@ -102,32 +111,32 @@
                for (int j = 0; j < 30; j++) {
                   int temp = gametwo.getPosition(i,j);
                   if(temp == -2){
-                     g.drawImage(img[12],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[12],(j*20) + 90, (i*20)+120, this); 
                   }            
                   if( temp == -1)
-                     g.drawImage(img[9],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 0)
-                     g.drawImage(img[0],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[0],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 1)
-                     g.drawImage(img[1],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[1],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 2)
-                     g.drawImage(img[2],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[2],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 3)
-                     g.drawImage(img[3],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[3],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 4)
-                     g.drawImage(img[4],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[4],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 5)
-                     g.drawImage(img[5],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[5],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 6)
-                     g.drawImage(img[6],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[6],(j*20) + 90, (i*20)+120, this); 
                   if( temp == 7)
-                     g.drawImage(img[7],(j*15) + 180, (i*15)+150, this);   
+                     g.drawImage(img[7],(j*20) + 90, (i*20)+120, this);   
                   if( temp == 8)
-                     g.drawImage(img[8],(j*15) + 180, (i*15)+150, this);
+                     g.drawImage(img[8],(j*20) + 90, (i*20)+120, this);
                   if(gametwo.Covered(i, j) == true)
-                     g.drawImage(img[10],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 90, (i*20)+120, this); 
                   if(gametwo.getMarking(i,j) == true){
-                     g.drawImage(img[11],(j*15) + 180, (i*15)+150, this);
+                     g.drawImage(img[11],(j*20) + 90, (i*20)+120, this);
                   
                   } 
                
@@ -141,29 +150,29 @@
                for (int j = 0; j < 30; j++) {
                   int temp = gamehard.getPosition(i,j);
                   if( temp == -1)
-                     g.drawImage(img[9],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 0)
-                     g.drawImage(img[0],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[0],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 1)
-                     g.drawImage(img[1],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[1],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 2)
-                     g.drawImage(img[2],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[2],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 3)
-                     g.drawImage(img[3],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[3],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 4)
-                     g.drawImage(img[4],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[4],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 5)
-                     g.drawImage(img[5],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[5],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 6)
-                     g.drawImage(img[6],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[6],(j*20) + 90, (i*20)+110, this); 
                   if( temp == 7)
-                     g.drawImage(img[7],(j*15) + 180, (i*15)+150, this);   
+                     g.drawImage(img[7],(j*20) + 90, (i*20)+110, this);   
                   if( temp == 8)
-                     g.drawImage(img[8],(j*15) + 180, (i*15)+150, this);
+                     g.drawImage(img[8],(j*20) + 90, (i*20)+110, this);
                   if(gamehard.Covered(i, j) == true)
-                     g.drawImage(img[10],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 90, (i*20)+110, this); 
                   if(gamehard.getMarking(i,j) == true){
-                     g.drawImage(img[11],(j*15) + 180, (i*15)+150, this);
+                     g.drawImage(img[11],(j*20) + 90, (i*20)+110, this);
                   
                   } 
                
@@ -177,29 +186,29 @@
                for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if( temp == -1)
-                     g.drawImage(img[9],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[9],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 0)
-                     g.drawImage(img[0],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[0],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 1)
-                     g.drawImage(img[1],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[1],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 2)
-                     g.drawImage(img[2],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[2],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 3)
-                     g.drawImage(img[3],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[3],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 4)
-                     g.drawImage(img[4],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[4],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 5)
-                     g.drawImage(img[5],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[5],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 6)
-                     g.drawImage(img[6],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[6],(j*20) + 300, (i*20)+200, this); 
                   if( temp == 7)
-                     g.drawImage(img[7],(j*15) + 320, (i*15)+200, this);   
+                     g.drawImage(img[7],(j*20) + 300, (i*20)+200, this);   
                   if( temp == 8)
-                     g.drawImage(img[8],(j*15) + 320, (i*15)+200, this);
+                     g.drawImage(img[8],(j*20) + 300, (i*20)+200, this);
                   if(gameeasy.Covered(i, j) == true)
-                     g.drawImage(img[10],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[10],(j*20) + 300, (i*20)+200, this); 
                   if(gameeasy.getMarking(i,j) == true)
-                     g.drawImage(img[11],(j*15) + 320, (i*15)+200, this);
+                     g.drawImage(img[11],(j*20) + 300, (i*20)+200, this);
                 
                }                
             
@@ -211,29 +220,29 @@
                for (int j = 0; j < 16; j++) {
                   int temp = gamemed.getPosition(i,j);
                   if( temp == -1)
-                     g.drawImage(img[9],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 0)
-                     g.drawImage(img[0],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[0],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 1)
-                     g.drawImage(img[1],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[1],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 2)
-                     g.drawImage(img[2],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[2],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 3)
-                     g.drawImage(img[3],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[3],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 4)
-                     g.drawImage(img[4],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[4],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 5)
-                     g.drawImage(img[5],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[5],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 6)
-                     g.drawImage(img[6],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[6],(j*20) + 230, (i*20)+100, this); 
                   if( temp == 7)
-                     g.drawImage(img[7],(j*15) + 270, (i*15)+150, this);   
+                     g.drawImage(img[7],(j*20) + 230, (i*20)+100, this);   
                   if( temp == 8)
-                     g.drawImage(img[8],(j*15) + 270, (i*15)+150, this);
+                     g.drawImage(img[8],(j*20) + 230, (i*20)+100, this);
                   if(gamemed.Covered(i, j) == true)
-                     g.drawImage(img[10],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 230, (i*20)+100, this); 
                   if(gamemed.getMarking(i,j) == true)
-                     g.drawImage(img[11],(j*15) + 270, (i*15)+150, this);
+                     g.drawImage(img[11],(j*20) + 230, (i*20)+100, this);
                
                } 
                
@@ -248,10 +257,10 @@
                for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if(gameeasy.Covered(i,j) == true){
-                     g.drawImage(img[10],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[10],(j*20) + 300, (i*20)+200, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[9],(j*20) + 300, (i*20)+200, this); 
                   }
                }
             }
@@ -263,10 +272,10 @@
                for (int j = 0; j < 10; j++) {
                   int temp = gameeasy.getPosition(i,j);
                   if(gameeasy.Covered(i,j) != true){
-                     g.drawImage(img[10],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[10],(j*20) + 300, (i*20)+200, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 320, (i*15)+200, this); 
+                     g.drawImage(img[9],(j*20) + 300, (i*20)+200, this); 
                   }
                
                }
@@ -278,10 +287,10 @@
                for (int j = 0; j < 16; j++) {
                   int temp = gamemed.getPosition(i,j);
                   if(gamemed.Covered(i,j) == true){
-                     g.drawImage(img[10],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 230, (i*20)+100, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 230, (i*20)+100, this); 
                   }
                }
             }
@@ -293,10 +302,10 @@
                for (int j = 0; j < 16; j++) {
                   int temp = gamemed.getPosition(i,j);
                   if(gamemed.Covered(i,j) != true){
-                     g.drawImage(img[10],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 230, (i*20)+100, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 270, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 230, (i*20)+100, this); 
                   }
                
                }
@@ -308,25 +317,25 @@
                for (int j = 0; j < 30; j++) {
                   int temp = gamehard.getPosition(i,j);
                   if(gamehard.Covered(i,j) == true){
-                     g.drawImage(img[10],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 90, (i*20)+110, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 90, (i*20)+110, this); 
                   }
                }
             }
          }
-         else if(solo && !HARD && EASY && !MEDIUM && win == true && lose !=true ){ 
+         else if(solo && HARD && !EASY && !MEDIUM && win == true && lose !=true ){ 
             System.out.println("PAINT THE Winner"); 
             g.drawImage(WinnerBack,0,0,null);
             for (int i = 0; i < 16; i++) {
                for (int j = 0; j < 30; j++) {
                   int temp = gamehard.getPosition(i,j);
                   if(gamehard.Covered(i,j) != true){
-                     g.drawImage(img[10],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[10],(j*20) + 90, (i*20)+110, this); 
                   }
                   if(temp == -1) {
-                     g.drawImage(img[9],(j*15) + 180, (i*15)+150, this); 
+                     g.drawImage(img[9],(j*20) + 90, (i*20)+110, this); 
                   }
                
                }
@@ -388,16 +397,18 @@
             
             }
             else if(twoplay == true && solo != true && ai != true){
-               System.out.println("Come out");         
-               int boxLine =0;
-               int boxColumn = 0; 	
-               for(int i = 180 ; i<420; i+=15){
-                  for(int j = 150; j < 600 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-180)/15);
-                        boxLine = ((e.getY()-150)/15);	
-                        tempLine= boxLine;
-                        tempColumn = boxColumn; 
+               System.out.println("Come out!!!");  
+               if(turn <  5){
+                  int boxLine =0;
+                  int boxColumn = 0; 	
+                  for(int i = 90 ; i<330; i+=20){
+                     for(int j = 120; j < 520 ; j+=20){
+                        if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                           boxColumn = ((e.getX()-90)/20);
+                           boxLine = ((e.getY()-120)/20);	
+                           tempLine= boxLine;
+                           tempColumn = boxColumn; 
+                        }
                      }
                   }
                   System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
@@ -405,6 +416,7 @@
                      if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
                         System.out.println("WHYz");                   
                         gametwo.play(boxLine, boxColumn); 
+                        turn++;
                         repaint();       
                      }
                      else if(gametwo.win() == true){
@@ -419,11 +431,88 @@
                      }
                      
                   }
-                  
+                  if(bombing){
+                     gametwo.Bomb(boxLine,boxColumn);
+                     bombing=false;
+                     repaint(); 
+                  }
+                  if(firing){
+                     gametwo.fire(boxLine,boxColumn); 
+                     firing=false;
+                     repaint(); 
+                  }
+                  if(Bombbutt.isInside(e)){ 
+                     bombing=true;
+                     repaint(); 
+                  }  
+                  if(Firebutt.isInside(e)&&(!Bombbutt.isInside(e))){
+                     firing=true;
+                     repaint(); 
+                  }            	
                }
-               if(Bombbutt.isInside(e)){
-                  gametwo.Bomb(boxLine,boxColumn); 
-               }              	
+                      	
+               else{
+                  if(playercount%2 ==0){
+                     playercount++;
+                     playeroneturn = false; 
+                  }
+                  if(playercount%2 !=0){
+                     playercount++;
+                     playeroneturn = true; 
+                  }
+                  turn = 0; 
+                  changeFlag(); 
+                  int boxLine =0;
+                  int boxColumn = 0; 	
+                  for(int i = 90 ; i<330; i+=20){
+                     for(int j = 120; j < 520 ; j+=20){
+                        if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                           boxColumn = ((e.getX()-90)/20);
+                           boxLine = ((e.getY()-120)/20);	
+                           tempLine= boxLine;
+                           tempColumn = boxColumn; 
+                        }
+                     }
+                     System.out.println(boxColumn+ " " + boxLine+ " " + e.getX() + " " + e.getY()); 
+                     if(boxColumn > -1 && boxLine < 16 && boxLine > -1 && boxColumn < 30){
+                        if(gametwo.loser(boxLine, boxColumn) != true && gametwo.win()!= true){
+                           System.out.println("WHYz");                   
+                           gametwo.play(boxLine, boxColumn); 
+                           turn++;
+                           repaint();       
+                        }
+                        else if(gametwo.win() == true){
+                           System.out.println("WHY");                 
+                           win = true;
+                           repaint(); 
+                        }
+                        else{
+                           lose = true; 
+                           System.out.println("WHY NOT"); 
+                           repaint(); 
+                        }
+                     
+                     }
+                     if(bombing){
+                        gametwo.Bomb(boxLine,boxColumn);
+                        bombing=false;
+                        repaint(); 
+                     }
+                     if(firing){
+                        gametwo.fire(boxLine,boxColumn); 
+                        firing=false;
+                        repaint(); 
+                     }
+                     if(Bombbutt.isInside(e)){ 
+                        bombing=true;
+                        repaint(); 
+                     }  
+                     if(Firebutt.isInside(e)&&(!Bombbutt.isInside(e))){
+                        firing=true;
+                        repaint(); 
+                     }            
+                  }
+               }
             }
             	
                         
@@ -431,11 +520,11 @@
             else if(EASY == true && MEDIUM != true && HARD != true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 320 ; i<455; i+=15){
-                  for(int j = 200; j < 325 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-320)/15);
-                        boxLine = ((e.getY()-200)/15);	
+               for(int i = 300 ; i<435; i+=20){
+                  for(int j = 200; j < 325 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-300)/20);
+                        boxLine = ((e.getY()-200)/20);	
                         tempLine= boxLine;
                         tempColumn = boxColumn; 
                      }
@@ -462,11 +551,11 @@
             else if(EASY != true && MEDIUM == true && HARD != true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 270 ; i<510; i+=15){
-                  for(int j = 150; j < 390 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-270)/15);
-                        boxLine = ((e.getY()-150)/15);	
+               for(int i = 230 ; i<470; i+=20){
+                  for(int j = 100; j < 290 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-230)/20);
+                        boxLine = ((e.getY()-100)/20);	
                         tempLine= boxLine;
                         tempColumn = boxColumn; 
                      }
@@ -496,11 +585,11 @@
             else if(EASY != true && MEDIUM != true && HARD == true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 180 ; i<420; i+=15){
-                  for(int j = 150; j < 600 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-180)/15);
-                        boxLine = ((e.getY()-150)/15);	
+               for(int i = 90 ; i<330; i+=20){
+                  for(int j = 110; j < 510 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-90)/20);
+                        boxLine = ((e.getY()-110)/20);	
                         tempLine= boxLine;
                         tempColumn = boxColumn; 
                      }
@@ -579,11 +668,11 @@
             else if(EASY == true && MEDIUM != true && HARD != true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 320 ; i<455; i+=15){
-                  for(int j = 200; j < 325 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-320)/15);
-                        boxLine = ((e.getY()-200)/15);	
+               for(int i = 300 ; i<435; i+=20){
+                  for(int j = 200; j < 325 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-300)/20);
+                        boxLine = ((e.getY()-200)/20);	
                         
                      }
                   }  
@@ -595,11 +684,11 @@
             else if(EASY != true && MEDIUM == true && HARD != true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 270 ; i<510; i+=15){
-                  for(int j = 150; j < 390 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-270)/15);
-                        boxLine = ((e.getY()-150)/15);	
+               for(int i = 230 ; i<470; i+=20){
+                  for(int j = 100; j < 290 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-230)/20);
+                        boxLine = ((e.getY()-100)/20);	
                      }
                   }  
                }
@@ -610,11 +699,11 @@
             else if(EASY != true && MEDIUM != true && HARD == true && win != true && lose !=true){
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 180 ; i<420 ; i+=15){
-                  for(int j = 150; j < 600 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-180)/15);
-                        boxLine = ((e.getY()-150)/15);	
+               for(int i = 90 ; i<330 ; i+=20){
+                  for(int j = 110; j < 510 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-90)/20);
+                        boxLine = ((e.getY()-110)/20);	
                      }
                   }
                }
@@ -626,11 +715,11 @@
                System.out.println("Come out");         
                int boxLine =0;
                int boxColumn = 0; 	
-               for(int i = 180 ; i<420; i+=15){
-                  for(int j = 150; j < 600 ; j+=15){
-                     if(e.getX()>i || e.getX()<(i+15) && e.getY() > j || e.getY()< (j+15)){
-                        boxColumn = ((e.getX()-180)/15);
-                        boxLine = ((e.getY()-150)/15);	
+               for(int i = 90 ; i<330; i+=20){
+                  for(int j = 120; j < 520 ; j+=20){
+                     if(e.getX()>i || e.getX()<(i+20) && e.getY() > j || e.getY()< (j+20)){
+                        boxColumn = ((e.getX()-90)/20);
+                        boxLine = ((e.getY()-120)/20);	
                         tempLine= boxLine;
                         tempColumn = boxColumn; 
                      }
@@ -642,7 +731,6 @@
             }
             
          }
-         
          
       
       }                       

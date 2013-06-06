@@ -133,11 +133,12 @@
          }
             
       }
+   
       public void Mark( int Line, int Column){
          if(covering[Line][Column] == true && marking[Line][Column] == false){       
             marking[Line][Column] = true; 
          }
-         else if( covering[Line][Column] == true && marking[Line][Column] == true){
+         else if(covering[Line][Column] == true && marking[Line][Column] == true){
             marking[Line][Column] = false; 
          }
       }
@@ -254,13 +255,22 @@
          
          }
       }
-      public void Mindcontrol(int Line1, int Column1){
+      public void fire(int Line, int Column){
+         System.out.println("FIRE");
+         
+         for(int i=0;i<32;i++){
+            mines[Line][i]=-2;
+            setCovered(Line, i);
+         }
+         for(int i=0;i<16;i++){
+            mines[i][Column]=-2;
+            setCovered(i, Column);
+         }
       
       }
-      public void multiFlag(int Line1, int Column1){
-      
-      }
+   
       public void Bomb(int Line1, int Column1){
+         System.out.println("BOMB");
          if(Column1 == 0 && Line1 ==0){
             mines[Line1+1][Column1] =-2;
             mines[Line1][Column1+1] =-2;
@@ -281,16 +291,28 @@
             mines[Line1+1][Column1+1]=-2;
             mines[Line1][Column1-1]=-2;
             mines[Line1][Column1+1]=-2;
+            setCovered(Line1+1, Column1);
+            setCovered(Line1+1, Column1-1);
+            setCovered(Line1+1, Column1+1);
+            setCovered(Line1+1, Column1+1);
+            setCovered(Line1, Column1-1);
+            setCovered(Line1, Column1+1);
          }
                
          else{
-            for(int i=-1 ; i<=1 ; i++){
-               for(int j=-1 ; j<=1 ; j++){
-                  mines[Line1][Column1] = -2; 
+            for (int i=-1;i<2;i++){
+               for (int j=-1;j<2;j++){
+                  mines[Line1+i][Column1+j] = -2;
+                  setCovered(Line1+i, Column1+j);
                }
             }
          }
+      }      
+      public void multiFlag(int Line1, int Column1){
+      
       }
+              
+   
    }            
      
       
